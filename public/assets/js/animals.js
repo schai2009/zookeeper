@@ -64,4 +64,16 @@ const handleGetAnimalsSubmit = event => {
 
 $animalForm.addEventListener('submit', handleGetAnimalsSubmit);
 
-getAnimals();
+getAnimals(
+  fetch(queryUrl)
+  .then(response => {
+    if (!response.ok) {
+      return alert('Error: ' + response.statusText);
+    }
+    return response.json();
+  })
+  .then(animalData => {
+    console.log(animalData);
+    printResults(animalData);
+  });
+);
